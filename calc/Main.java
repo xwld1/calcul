@@ -47,15 +47,21 @@ public class Main {
         int choice = 0;
         while (choice < 1 || choice > 3) {
             try {
-                choice = (int) getValidNumber();
-                switch (choice) {
-                    case 1 -> numSystem = "binary";
-                    case 2 -> numSystem = "decimal";
-                    case 3 -> numSystem = "hex";
-                    default -> {
-                        System.out.println("Выберите число от 1 до 3");
-                        choice = 0;
+                // Используем обычное чтение числа, не зависящее от выбранной системы
+                if (scanner.hasNextInt()) {
+                    choice = scanner.nextInt();
+                    switch (choice) {
+                        case 1 -> numSystem = "binary";
+                        case 2 -> numSystem = "decimal";
+                        case 3 -> numSystem = "hex";
+                        default -> {
+                            System.out.println("Выберите число от 1 до 3");
+                            choice = 0;
+                        }
                     }
+                } else {
+                    System.out.println("Введите число от 1 до 3");
+                    scanner.next(); // очистка некорректного ввода
                 }
             } catch (Exception e) {
                 System.out.println("Введите корректное число");
@@ -76,14 +82,42 @@ public class Main {
     private static void showMenu() {
         System.out.println("\nРасширенный калькулятор - " + getSystemName(numSystem) + " система");
         System.out.println("Доступные операции:");
-        System.out.println("1. Базовые операции (+, -, *, /)");
-        System.out.println("2. Возведение в степень (^)");
-        System.out.println("3. Квадратный корень (sqrt)");
-        if (numSystem.equals("decimal")) {
-            System.out.println("4. Синус (sin)");
-            System.out.println("5. Косинус (cos)");
+        
+        switch (numSystem) {
+            case "binary" -> {
+                System.out.println("1. Базовые операции:");
+                System.out.println("   + (сложение)");
+                System.out.println("   - (вычитание)");
+                System.out.println("   * (умножение)");
+                System.out.println("   / (деление, результат округляется до целого)");
+                System.out.println("2. ^ (возведение в степень)");
+                System.out.println("3. sqrt (квадратный корень, результат округляется)");
+                System.out.println("Для ввода используйте двоичные числа (0 и 1)");
+            }
+            case "hex" -> {
+                System.out.println("1. Базовые операции:");
+                System.out.println("   + (сложение)");
+                System.out.println("   - (вычитание)");
+                System.out.println("   * (умножение)");
+                System.out.println("   / (деление, результат округляется до целого)");
+                System.out.println("2. ^ (возведение в степень)");
+                System.out.println("3. sqrt (квадратный корень, результат округляется)");
+                System.out.println("Для ввода используйте шестнадцатеричные числа (0-9, A-F)");
+            }
+            default -> {
+                System.out.println("1. Базовые операции:");
+                System.out.println("   + (сложение)");
+                System.out.println("   - (вычитание)");
+                System.out.println("   * (умножение)");
+                System.out.println("   / (деление)");
+                System.out.println("2. ^ (возведение в степень)");
+                System.out.println("3. sqrt (квадратный корень)");
+                System.out.println("4. sin (синус угла в градусах)");
+                System.out.println("5. cos (косинус угла в градусах)");
+            }
         }
-        System.out.println("Для смены системы счисления введите 'system'");
+        
+     
     }
     
     private static void processOperation(String operation) {
