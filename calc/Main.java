@@ -55,11 +55,22 @@ public class Main {
         }
     }
     
+    private static double getValidNumber() {
+        while (true) {
+            if (scanner.hasNextDouble()) {
+                return scanner.nextDouble();
+            } else {
+                System.out.println("Ошибка: введите корректное число.");
+                scanner.next(); // очистка некорректного ввода
+            }
+        }
+    }
+    
     private static void processBasicOperation(String operation) {
         System.out.println("Введите первое число:");
-        double num1 = scanner.nextDouble();
+        double num1 = getValidNumber();
         System.out.println("Введите второе число:");
-        double num2 = scanner.nextDouble();
+        double num2 = getValidNumber();
         
         double result = switch (operation) {
             case "+" -> calculator.add(num1, num2);
@@ -74,39 +85,39 @@ public class Main {
     
     private static void processPower() {
         System.out.println("Введите число:");
-        double base = scanner.nextDouble();
+        double base = getValidNumber();
         System.out.println("Введите степень:");
-        double exponent = scanner.nextDouble();
+        double exponent = getValidNumber();
         System.out.printf("Результат: %.2f%n", calculator.power(base, exponent));
     }
     
     private static void processSqrt() {
         System.out.println("Введите число:");
-        double number = scanner.nextDouble();
+        double number = getValidNumber();
         System.out.printf("Результат: %.2f%n", calculator.sqrt(number));
     }
     
     private static void processSin() {
         System.out.println("Введите угол в градусах:");
-        double degrees = scanner.nextDouble();
+        double degrees = getValidNumber();
         System.out.printf("Результат: %.2f%n", calculator.sin(degrees));
     }
     
     private static void processCos() {
         System.out.println("Введите угол в градусах:");
-        double degrees = scanner.nextDouble();
+        double degrees = getValidNumber();
         System.out.printf("Результат: %.2f%n", calculator.cos(degrees));
     }
     
     private static void processBinary() {
         System.out.println("Введите целое число:");
-        int number = scanner.nextInt();
+        int number = (int) getValidNumber();
         System.out.println("Результат: " + progCalculator.toBinary(number));
     }
     
     private static void processHexadecimal() {
         System.out.println("Введите целое число:");
-        int number = scanner.nextInt();
+        int number = (int) getValidNumber();
         System.out.println("Результат: " + progCalculator.toHexadecimal(number));
     }
 }
