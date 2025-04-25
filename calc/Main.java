@@ -2,6 +2,8 @@ package calc;
 
 import java.util.Scanner;
 
+
+
 public class Main {
     private static final Calculator calculator = new Calculator();
     private static final ProgrammerCalculator progCalculator = new ProgrammerCalculator();
@@ -170,17 +172,27 @@ public class Main {
         }
     }
     
+    private static BaseCalculator getCurrentCalculator() {
+        if (numSystem.equals("binary") || numSystem.equals("hex")) {
+            return progCalculator;
+        } else {
+            return calculator;
+        }
+    }
+    
     private static void processBasicOperation(String operation) {
         System.out.println("Введите первое число:");
         double num1 = getValidNumber();
         System.out.println("Введите второе число:");
         double num2 = getValidNumber();
         
+        BaseCalculator currentCalculator = getCurrentCalculator();
+        
         double result = switch (operation) {
-            case "+" -> calculator.add(num1, num2);
-            case "-" -> calculator.subtract(num1, num2);
-            case "*" -> calculator.multiply(num1, num2);
-            case "/" -> calculator.divide(num1, num2);
+            case "+" -> currentCalculator.add(num1, num2);
+            case "-" -> currentCalculator.subtract(num1, num2);
+            case "*" -> currentCalculator.multiply(num1, num2);
+            case "/" -> currentCalculator.divide(num1, num2);
             default -> 0;
         };
         
@@ -192,14 +204,20 @@ public class Main {
         double base = getValidNumber();
         System.out.println("Введите степень:");
         double exponent = getValidNumber();
-        double result = calculator.power(base, exponent);
+        
+        BaseCalculator currentCalculator = getCurrentCalculator();
+        double result = currentCalculator.power(base, exponent);
+        
         displayResult(result);
     }
     
     private static void processSqrt() {
         System.out.println("Введите число:");
         double number = getValidNumber();
-        double result = calculator.sqrt(number);
+        
+        BaseCalculator currentCalculator = getCurrentCalculator();
+        double result = currentCalculator.sqrt(number);
+        
         displayResult(result);
     }
     

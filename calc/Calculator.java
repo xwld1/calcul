@@ -1,18 +1,22 @@
 package calc;
 
-public class Calculator {
+public class Calculator extends BaseCalculator {
+    @Override
     public double add(double a, double b) {
         return a + b;
     }
     
+    @Override
     public double subtract(double a, double b) {
         return a - b;
     }
     
+    @Override
     public double multiply(double a, double b) {
         return a * b;
     }
     
+    @Override
     public double divide(double a, double b) throws ArithmeticException {
         if (b == 0) {
             throw new ArithmeticException("Деление на ноль!");
@@ -20,10 +24,12 @@ public class Calculator {
         return a / b;
     }
     
+    @Override
     public double power(double base, double exponent) {
         return Math.pow(base, exponent);
     }
     
+    @Override
     public double sqrt(double number) throws ArithmeticException {
         if (number < 0) {
             throw new ArithmeticException("Невозможно извлечь корень из отрицательного числа!");

@@ -1,6 +1,6 @@
 package calc;
 
-public class ProgrammerCalculator {
+public class ProgrammerCalculator extends Calculator {
     public String toBinary(int number) {
         return Integer.toBinaryString(number);
     }
@@ -8,4 +8,5 @@ public class ProgrammerCalculator {
     public String toHexadecimal(int number) {
         return Integer.toHexString(number).toUpperCase();
     }
+ 
 } 
