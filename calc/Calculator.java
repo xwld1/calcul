@@ -1,47 +1,88 @@
-package calc;
+/**
+ * Абстрактный класс Calculator определяет базовый функционал калькулятора.
+ * Все конкретные реализации калькулятора должны наследоваться от этого класса
+ * и реализовывать его абстрактные методы.
+ */
+public abstract class Calculator {
+    protected double memory;           // Хранит текущий результат вычислений
+    protected boolean isFirstOperation; // Флаг первой операции
 
-public class Calculator extends BaseCalculator {
-    @Override
-    public double add(double a, double b) {
-        return a + b;
+
+    /**
+     * Конструктор абстрактного калькулятора.
+     * Инициализирует память нулем и устанавливает флаг первой операции.
+     */
+    public Calculator() {
+        this.memory = 0;
+        this.isFirstOperation = true;
     }
-    
-    @Override
-    public double subtract(double a, double b) {
-        return a - b;
+
+    /**
+     * Возвращает текущее значение из памяти калькулятора.
+     * @return текущее значение в памяти
+     */
+    public double getMemory() {
+        return memory;
     }
-    
-    @Override
-    public double multiply(double a, double b) {
-        return a * b;
+
+    /**
+     * Устанавливает значение в память калькулятора.
+     * @param value новое значение для памяти
+     */
+    public void setMemory(double value) {
+        this.memory = value;
+        isFirstOperation = false;
     }
-    
-    @Override
-    public double divide(double a, double b) throws ArithmeticException {
-        if (b == 0) {
-            throw new ArithmeticException("Деление на ноль!");
-        }
-        return a / b;
+
+    /**
+     * Проверяет, является ли следующая операция первой.
+     * @return true если это первая операция, false в противном случае
+     */
+    public boolean isFirstOperation() {
+        return isFirstOperation;
     }
-    
-    @Override
-    public double power(double base, double exponent) {
-        return Math.pow(base, exponent);
+
+    /**
+     * Сбрасывает состояние калькулятора в начальное.
+     */
+    public void reset() {
+        this.memory = 0;
+        this.isFirstOperation = true;
     }
-    
-    @Override
-    public double sqrt(double number) throws ArithmeticException {
-        if (number < 0) {
-            throw new ArithmeticException("Невозможно извлечь корень из отрицательного числа!");
-        }
-        return Math.sqrt(number);
-    }
-    
-    public double sin(double degrees) {
-        return Math.sin(Math.toRadians(degrees));
-    }
-    
-    public double cos(double degrees) {
-        return Math.cos(Math.toRadians(degrees));
-    }
+
+    /**
+     * Абстрактный метод для выполнения операции сложения.
+     * @param num число для сложения
+     * @return результат операции
+     */
+    public abstract double add(double num);
+
+    /**
+     * Абстрактный метод для выполнения операции вычитания.
+     * @param num число для вычитания
+     * @return результат операции
+     */
+    public abstract double subtract(double num);
+
+    /**
+     * Абстрактный метод для выполнения операции умножения.
+     * @param num множитель
+     * @return результат операции
+     */
+    public abstract double multiply(double num);
+
+    /**
+     * Абстрактный метод для выполнения операции деления.
+     * @param num делитель
+     * @return результат операции
+     * @throws ArithmeticException при попытке деления на ноль
+     */
+    public abstract double divide(double num) throws ArithmeticException;
+
+    /**
+     * Абстрактный метод для форматирования результата.
+     * @param number число для форматирования
+     * @return отформатированное представление числа
+     */
+    public abstract String formatResult(double number);
 } 
